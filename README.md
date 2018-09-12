@@ -1,8 +1,8 @@
-#React Calculator
+# React Calculator
 
 A basic calculator made with React, 
 
-###usage
+### usage
 
 to run use
 ```npm start```
