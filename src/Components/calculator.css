@@ -1,0 +1,37 @@
+.outputbox{
+    text-align: right;
+    font-size: 2em;
+    font-weight: bold;
+    height: 20%;
+}
+.rt{
+    text-align: right;
+    font-size: 1em;
+    height: 5%;
+}
+.Calpad{
+    position: relative;
+    height: 70%;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.Numpad{
+    position: relative;
+    height: available;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.ActionPad{
+    display: grid;
+    grid-template-columns: auto;
+}
+.body{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.buttons{
+    border: none;
+    height: 100%;
+}

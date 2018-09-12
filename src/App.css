@@ -1,0 +1,7 @@
+.App-header {
+  text-align: center;
+  height: 10%;
+}
+html, body, #app, #app>div {
+  height: 100%
+}
