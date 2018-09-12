@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './calculator.css'
+import math from 'mathjs'
 
 class Body extends Component{
 
@@ -20,10 +21,8 @@ class Body extends Component{
         let windowwidth=window.innerWidth;
         return(
             <div className='body'>
-                <div className="outputbox">
-                    {fvalue}
-
-                </div>
+                <input className="outputbox" type="text" value={fvalue} onInput={event => this.directinput(event.target.value)}>
+                </input>
                 <div className="rt">
                     {this.state.calvalue}
                 </div>
@@ -35,13 +34,28 @@ class Body extends Component{
                         <button className="buttons" onClick={event => this.evaluate()}>=</button>
                     </div>
                     <div className="ActionPad">
-                        {actions.map(value => (<button className="buttons" onClick={event => this.concatf({value})}>{value}</button>))}
+                        <button className="actionbuttons" onClick={event => this.clearlast()} >DEL</button>
+                        {actions.map(value => (<button className="actionbuttons" onClick={event => this.concatf({value})}>{value}</button>))}
                     </div>
                 </div>
+
             </div>
         );
     }
+    clearlast(){
+        this.state.fvalue=this.state.fvalue.substr(0,this.state.fvalue.length-1)
+        this.setState(this.state)
+        this.updatecval()
+    }
 
+    directinput(value)
+    {
+        this.state.fvalue=value;
+
+        this.updatecval()
+
+        this.setState(this.state)
+    }
     increment(num) {
         this.setState(state => (
             {on: state.on+num}
@@ -52,12 +66,7 @@ class Body extends Component{
         if (this.state.fvalue=='0')
             this.state.fvalue=''
         this.state.fvalue= this.state.fvalue.concat(val.value)
-        try {
-            this.state.calvalue=eval(this.state.fvalue).toString()
-        }
-        catch (e) {
-            this.state.calvalue=''
-        }
+        this.updatecval()
         if (this.state.fvalue=='')
             this.state.fvalue='0'
         this.setState(this.state)
@@ -80,5 +89,13 @@ class Body extends Component{
         ))
     }
 
+    updatecval(){
+        try {
+            this.state.calvalue=math.eval(this.state.fvalue).toString()
+        }
+        catch (e) {
+            this.state.calvalue=''
+        }
+    }
 }
 export default Body

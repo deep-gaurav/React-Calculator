@@ -3,6 +3,8 @@
     font-size: 2em;
     font-weight: bold;
     height: 20%;
+    width: 98%;
+
 }
 .rt{
     text-align: right;
@@ -34,4 +36,9 @@
 .buttons{
     border: none;
     height: 100%;
+}
+.actionbuttons{
+    border: none;
+    height: 100%;
+    background-color: lavender;
 }
