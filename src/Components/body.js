@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './calculator.css'
 import math from 'mathjs'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import {CSSTransition} from 'react-transition-group'
 
 class Body extends Component{
 
@@ -32,14 +32,17 @@ class Body extends Component{
                 <div className="rt">
                     {this.state.calvalue}
                 </div>
-                <ReactCSSTransitionGroup
-                    transitionName='funcpad'
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={300}>
-                />
-                {funcpad}
-                </ReactCSSTransitionGroup>
+
                 <br></br>
+                <CSSTransition
+                    in={this.state.functions}
+                    timeout={700}
+                    classNames="funcpad"
+                    unmountOnExit
+                >
+                    {funcpad}
+                </CSSTransition>
+                <button className="swipebutton" onClick={event => this.swipe(funcpad)}>{this.state.functions? 'f(n) ↑' : 'f(n) ↓' }  </button>
 
                 <div className="Calpad" >
 
@@ -52,7 +55,6 @@ class Body extends Component{
                         <button className="actionbuttons" onClick={event => this.clearlast()} >DEL</button>
                         {actions.map(value => (<button className="actionbuttons" onClick={event => this.concatf({value})}>{value}</button>))}
                     </div>
-                    <button className="swipebutton" onClick={event => this.swipe(funcpad)}>{this.state.functions? '>' : '<' }  </button>
 
                 </div>
 
