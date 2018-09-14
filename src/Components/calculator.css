@@ -15,7 +15,7 @@
     position: relative;
     height: 70%;
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 75% 20% 5%;
 }
 .Numpad{
     position: relative;
@@ -36,9 +36,48 @@
 .buttons{
     border: none;
     height: 100%;
+    font-size: 1em;
 }
 .actionbuttons{
     border: none;
     height: 100%;
     background-color: lavender;
+    font-size: 1em;
 }
+.swipebutton{
+    border: none;
+    background-color: azure;
+}
+
+.functionpad{
+    position: relative;
+    height: 70%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    transition-property: height;
+    transition-duration: 2s;
+}
+
+.functionpad:is-active{
+    height: 70%;
+}
+
+.funcpad-enter {
+    opacity: 0.01;
+}
+
+.funcpad-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.funcpad-leave {
+    opacity: 1;
+}
+
+.funcpad-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+

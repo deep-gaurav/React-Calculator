@@ -5,6 +5,6 @@ A basic calculator made with React,
 ### usage
 
 to run use
-```npm start```
+```npm run start```
 to build use
-```npm build```
+```npm run build```

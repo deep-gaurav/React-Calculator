@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './calculator.css'
 import math from 'mathjs'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class Body extends Component{
 
@@ -9,7 +10,8 @@ class Body extends Component{
         this.state={
             on:props.on,
             fvalue:'0',
-            calvalue:''
+            calvalue:'',
+            functions:false
         };
     }
 
@@ -17,8 +19,12 @@ class Body extends Component{
         var buttons=[9,8,7,6,5,4,3,2,1];
         var lastrow=['.',0]
         var actions = ['+','-','*','/']
+        var functions = ['sin','cos','tan','log','!','pi','e','^','(',')','%']
         let fvalue=this.state.fvalue;
         let windowwidth=window.innerWidth;
+        const funcpad=<div className="functionpad">
+            {functions.map(value => (<button className="buttons" onClick={event => this.concatf({value})}>{value}</button>))}
+        </div>
         return(
             <div className='body'>
                 <input className="outputbox" type="text" value={fvalue} onInput={event => this.directinput(event.target.value)}>
@@ -26,8 +32,17 @@ class Body extends Component{
                 <div className="rt">
                     {this.state.calvalue}
                 </div>
+                <ReactCSSTransitionGroup
+                    transitionName='funcpad'
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
+                />
+                {funcpad}
+                </ReactCSSTransitionGroup>
                 <br></br>
+
                 <div className="Calpad" >
+
                     <div className="Numpad">
                         {buttons.map(value => (<button className="buttons" onClick={event => this.concatf({value})}>{value}</button>))}
                         {lastrow.map(value => (<button className="buttons" onClick={event => this.concatf({value})}>{value}</button>))}
@@ -37,11 +52,23 @@ class Body extends Component{
                         <button className="actionbuttons" onClick={event => this.clearlast()} >DEL</button>
                         {actions.map(value => (<button className="actionbuttons" onClick={event => this.concatf({value})}>{value}</button>))}
                     </div>
+                    <button className="swipebutton" onClick={event => this.swipe(funcpad)}>{this.state.functions? '>' : '<' }  </button>
+
                 </div>
 
             </div>
         );
     }
+
+    swipe(funcpad){
+        if(this.state.functions)
+            this.state.functions=false
+
+        else
+            this.state.functions=true;
+        this.setState(this.state)
+    }
+
     clearlast(){
         this.state.fvalue=this.state.fvalue.substr(0,this.state.fvalue.length-1)
         this.setState(this.state)
@@ -74,7 +101,7 @@ class Body extends Component{
     }
     evaluate(){
         try {
-            this.state.fvalue=eval(this.state.fvalue).toString()
+            this.state.fvalue=this.state.calvalue
         }
         catch (e) {
             console.log(e)
